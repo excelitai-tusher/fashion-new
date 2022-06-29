@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'View/component/fashion_cart.dart';
+import 'View/component/cart.dart';
 import 'View/provider/fashion_color.dart';
 import 'View/provider/fashion_product_details.dart';
 import 'View/fashion_product_details/fashion_product_details.dart';
