@@ -1,25 +1,26 @@
-import 'package:fashion_app/View/provider/fashion_product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../provider/fashion_color.dart';
 
-class SizeColor extends StatelessWidget {
-  SizeColor({
+import '../provider/fashion_product_details.dart';
+
+class SizeButton extends StatelessWidget {
+  SizeButton({
     Key? key,
     this.buttonHeight,
     this.buttonWidth,
     this.title,
     this.size
-  }): super(key: key);
+}): super(key: key);
 
   double? buttonWidth;
   double? buttonHeight;
   String? title;
   int? size;
 
+
   @override
   Widget build(BuildContext context) {
-    final SizeSelection = Provider.of<FashionColor>(context);
+    final SizeSelection = Provider.of<FashionDetailsController>(context);
     return GestureDetector(
       onTap: (){
         SizeSelection.SizeSelected(size!);
@@ -29,8 +30,8 @@ class SizeColor extends StatelessWidget {
         height: buttonHeight,
         width: buttonWidth,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
-            color: SizeSelection.SizeSelection == size ? Colors.grey : Colors.white,
+          borderRadius: BorderRadius.circular(7),
+          color: SizeSelection.SizeSelection == size ? Colors.yellow : Colors.grey,
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
@@ -40,7 +41,7 @@ class SizeColor extends StatelessWidget {
               ),
             ]
         ),
-        child: Center(child: Text(title!, style: TextStyle(color: SizeSelection.SizeSelection == size ? Colors.black : Colors.grey))),
+        child: Center(child: Text(title!, style: TextStyle(color: SizeSelection.SizeSelection == size ? Colors.black : Colors.white))),
       ),
     );
   }

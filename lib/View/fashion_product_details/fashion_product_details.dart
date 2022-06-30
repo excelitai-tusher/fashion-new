@@ -1,4 +1,3 @@
-import 'package:fashion_app/View/component/size%20color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,9 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '../component/cart.dart';
-import '../component/size button.dart';
-import '../provider/fashion_product_details.dart';
+import '../../component/cart.dart';
+import '../../component/size button.dart';
+import '../../component/size color.dart';
+
 
 class Fashion_Product_Details extends StatefulWidget {
   const Fashion_Product_Details({Key? key}) : super(key: key);
@@ -24,12 +24,28 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
   String? details;
   //const TabBarScreen({Key? key}) : super(key: key);
   YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: '5j2AbiovRyk', // id youtube video
-      flags: YoutubePlayerFlags(
-        controlsVisibleAtStart: true,
-        autoPlay: false,
-        mute: false,
-      ));
+    initialVideoId: '5j2AbiovRyk', // id youtube video
+    flags: YoutubePlayerFlags(
+      controlsVisibleAtStart: true,
+      autoPlay: false,
+      mute: false,
+    ),
+  );
+
+  int _count = 0;
+
+  void _increment() {
+    setState(() {
+      _count++;
+    });
+  }
+
+  void _decrement() {
+    setState(() {
+      _count--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: false);
@@ -265,7 +281,9 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Size"),
+                    Text("Size",
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                    ),
                     SizedBox(
                       width: 30,
                     ),
@@ -317,7 +335,9 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Color"),
+                    Text("Color",
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                    ),
                     SizedBox(
                       width: 20,
                     ),
@@ -390,51 +410,47 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                   ],
                 ),
                 SizedBox(height: 10.h),
-
-//                 Row(
-//                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     const Text(
-//                       'Quantity',
-//                       style:
-//                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-//                     ),
-//                     Container(
-//                       width: MediaQuery.of(context).size.width * .4,
-//                       height: 40,
-//                       //  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-// // padding: EdgeInsets.symmetric(vertical: 0,horizontal: 6),
-//                       decoration: BoxDecoration(
-//                           border: Border.all(color: Colors.grey),
-//                           borderRadius: BorderRadius.circular(6)),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           IconButton(
-//                             onPressed: () {
-//                               setState(() {
-//                                 if (args.qty > 1) args.qty--;
-//                               });
-//                             },
-//                             icon: Icon(Icons.remove),
-//                           ),
-//                           Text(
-//                             '${args.qty}',
-//                             style: TextStyle(fontSize: 18),
-//                           ),
-//                           IconButton(
-//                             onPressed: () {
-//                               setState(() {
-//                                 args.qty++;
-//                               });
-//                             },
-//                             icon: Icon(Icons.add),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text('Quantity',
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                    ),
+                    SizedBox(width: 10.h,),
+                    Container(
+                      width: MediaQuery.of(context).size.width * .5,
+                      height: 30.h,
+                      //  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+// padding: EdgeInsets.symmetric(vertical: 0,horizontal: 6),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Center(
+                            child: TextButton(
+                              child: Icon(Icons.add, color: Colors.grey,),
+                              onPressed: _increment,
+                            ),
+                          ),
+                          VerticalDivider(color: Colors.black,),
+                          Text("${_count}"),
+                          VerticalDivider(color: Colors.black,),
+                          Center(
+                            child: TextButton(
+                              style:TextButton.styleFrom(
+                                primary: Colors.grey,
+                              ),
+                              child: Icon(Icons.remove, color: Colors.grey,),
+                              onPressed: _decrement,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -573,7 +589,7 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                             tabs: [
                               new Text("Product Details"),
                               new Text("Size Chart"),
-                               new Text("Write review"),
+                              new Text("Write review"),
                             ],
                           ),
                         ),
@@ -596,7 +612,9 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 10.h,
+                              ),
                               Text(
                                 "Lorem ipsum dolor sit amet, consectetur piscing \nElit. Porttitor pharetra duis ut praesent pharetra \nnon massa turpis tellus. Quisque non augue \nurna elementum lectus.",
                                 style: TextStyle(
@@ -643,54 +661,63 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                       ),
                                       label: Text(
                                         'Mid Length Kameez',
-                                        style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13.sp),
                                       ),
                                     ),
                                   ),
                                   Container(
                                     margin: EdgeInsets.symmetric(vertical: 20),
-                                    height: MediaQuery.of(context).size.height*.6,
+                                    height:
+                                        MediaQuery.of(context).size.height * .6,
                                     width: MediaQuery.of(context).size.width,
                                     child: SingleChildScrollView(
                                       child: Column(
-                                      children: [
-                                        DataTable(
-                                          columns: [
-                                            DataColumn(label: Text(
-                                                'CHEST',
-                                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
-                                            )),
-                                            DataColumn(label: Text(
-                                                'LENGTH',
-                                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
-                                            )),
-                                          ],
-                                          rows: [
-                                            DataRow(cells: [
-                                              DataCell(Text('32'),),
-                                              DataCell(Text('40')),
-                                            ]),
-                                            DataRow(cells: [
-                                              DataCell(Text('34')),
-                                              DataCell(Text('40')),
-                                            ]),
-                                            DataRow(cells: [
-                                              DataCell(Text('36')),
-                                              DataCell(Text('40')),
-                                            ]),
-                                            DataRow(cells: [
-                                              DataCell(Text('38')),
-                                              DataCell(Text('40')),
-                                            ]),
-                                            DataRow(cells: [
-                                              DataCell(Text('40')),
-                                              DataCell(Text('42')),
-                                            ]),
-                                          ],
-                                        )
-                                      ],
+                                        children: [
+                                          DataTable(
+                                            columns: [
+                                              DataColumn(
+                                                  label: Text('CHEST',
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight: FontWeight
+                                                              .bold))),
+                                              DataColumn(
+                                                  label: Text('LENGTH',
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight: FontWeight
+                                                              .bold))),
+                                            ],
+                                            rows: [
+                                              DataRow(cells: [
+                                                DataCell(
+                                                  Text('32'),
+                                                ),
+                                                DataCell(Text('40')),
+                                              ]),
+                                              DataRow(cells: [
+                                                DataCell(Text('34')),
+                                                DataCell(Text('40')),
+                                              ]),
+                                              DataRow(cells: [
+                                                DataCell(Text('36')),
+                                                DataCell(Text('40')),
+                                              ]),
+                                              DataRow(cells: [
+                                                DataCell(Text('38')),
+                                                DataCell(Text('40')),
+                                              ]),
+                                              DataRow(cells: [
+                                                DataCell(Text('40')),
+                                                DataCell(Text('42')),
+                                              ]),
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
                                   ),
                                 ],
                               ),
@@ -704,7 +731,7 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                   //new Text("")
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         'Customer Reviews',
@@ -725,13 +752,13 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                     child: SingleChildScrollView(
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           ListTile(
                                             isThreeLine: true,
                                             leading: CircleAvatar(
                                               backgroundColor:
-                                              Colors.greenAccent[400],
+                                                  Colors.greenAccent[400],
                                               radius: 30,
                                               backgroundImage: AssetImage(
                                                   "images/handsome.png"),
@@ -744,8 +771,8 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                             subtitle: Text("Product Review"),
                                             trailing: Container(
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                                      .size
+                                                      .width *
                                                   .1,
                                               child: FittedBox(
                                                 child: Row(
@@ -789,7 +816,7 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height*.2,
+                    height: MediaQuery.of(context).size.height * .2,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -807,129 +834,13 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                       children: [
                         Container(
                           height: 200,
-                          width: MediaQuery.of(context).size.width*.3,
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              //borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                  image: NetworkImage("https://pbs.twimg.com/profile_images/1024613191081324544/o-OxL6eH_400x400.jpg"),
-                              ),
-                              // image: DecorationImage(
-                              //   image: get.productThambnail !=
-                              //       null
-                              //       ? NetworkImage(
-                              //       "https://bppshops.com/${get.productThambnail}")
-                              //       : NetworkImage(
-                              //       'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'),
-                              //   // AssetImage(item.productImageUrl.toString()),
-                              //   fit: BoxFit.contain,
-                              // ),
-                          ),
-                        ),
-                        SizedBox(width: 20.h),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                "Red Shopping Bag Bag \nbag bag",
-                                //    item.productName.toString(),
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 5.h),
-                            Container(
-                              width: MediaQuery.of(context).size.width * .1,
-                              child: FittedBox(
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10.h,),
-                            Text(
-                              '৳ 2,000.0',
-                              style: TextStyle(color: Colors.green),
-                            ),
-                            Text(
-                              '৳ 2,500.0',
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  decoration: TextDecoration.lineThrough),
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Color(0xffFF6000),
-                              ),
-                              onPressed: () {
-                                // Navigator.push(context, MaterialPageRoute(builder: (context) => FashionDetailsController()));
-                              },
-                              // icon: Icon(
-                              //   Icons.shopping_cart,
-                              //   color: Colors.white,
-                              //   size: 12.sp,
-                              // ),
-                              child:  Text(
-                                'Shop Now',
-                                style: TextStyle(color: Colors.white, fontSize: 15.sp),
-                              )
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.h,),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height*.2,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 3,
-                          offset: Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 200,
-                          width: MediaQuery.of(context).size.width*.3,
+                          width: MediaQuery.of(context).size.width * .3,
                           decoration: BoxDecoration(
                             color: Colors.black,
                             //borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
-                              image: NetworkImage("https://pbs.twimg.com/profile_images/1024613191081324544/o-OxL6eH_400x400.jpg"),
+                              image: NetworkImage(
+                                  "https://pbs.twimg.com/profile_images/1024613191081324544/o-OxL6eH_400x400.jpg"),
                             ),
                             // image: DecorationImage(
                             //   image: get.productThambnail !=
@@ -985,7 +896,9 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10.h,),
+                            SizedBox(
+                              height: 10.h,
+                            ),
                             Text(
                               '৳ 2,000.0',
                               style: TextStyle(color: Colors.green),
@@ -1008,23 +921,24 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                 //   color: Colors.white,
                                 //   size: 12.sp,
                                 // ),
-                                child:  Text(
+                                child: Text(
                                   'Shop Now',
-                                  style: TextStyle(color: Colors.white, fontSize: 15.sp),
-                                )
-                            ),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 15.sp),
+                                )),
                           ],
                         ),
-
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height*.2,
+                    height: MediaQuery.of(context).size.height * .2,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -1042,12 +956,13 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                       children: [
                         Container(
                           height: 200,
-                          width: MediaQuery.of(context).size.width*.3,
+                          width: MediaQuery.of(context).size.width * .3,
                           decoration: BoxDecoration(
                             color: Colors.black,
                             //borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
-                              image: NetworkImage("https://pbs.twimg.com/profile_images/1024613191081324544/o-OxL6eH_400x400.jpg"),
+                              image: NetworkImage(
+                                  "https://pbs.twimg.com/profile_images/1024613191081324544/o-OxL6eH_400x400.jpg"),
                             ),
                             // image: DecorationImage(
                             //   image: get.productThambnail !=
@@ -1103,7 +1018,9 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10.h,),
+                            SizedBox(
+                              height: 10.h,
+                            ),
                             Text(
                               '৳ 2,000.0',
                               style: TextStyle(color: Colors.green),
@@ -1126,22 +1043,139 @@ class _Fashion_Product_DetailsState extends State<Fashion_Product_Details> {
                                 //   color: Colors.white,
                                 //   size: 12.sp,
                                 // ),
-                                child:  Text(
+                                child: Text(
                                   'Shop Now',
-                                  style: TextStyle(color: Colors.white, fontSize: 15.sp),
-                                )
-                            ),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 15.sp),
+                                )),
                           ],
                         ),
-
                       ],
                     ),
                   ),
                 ),
-
-
-
-
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * .2,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                          offset: Offset(0, 1), // changes position of shadow
+                        ),
+                      ],
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 200,
+                          width: MediaQuery.of(context).size.width * .3,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            //borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  "https://pbs.twimg.com/profile_images/1024613191081324544/o-OxL6eH_400x400.jpg"),
+                            ),
+                            // image: DecorationImage(
+                            //   image: get.productThambnail !=
+                            //       null
+                            //       ? NetworkImage(
+                            //       "https://bppshops.com/${get.productThambnail}")
+                            //       : NetworkImage(
+                            //       'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'),
+                            //   // AssetImage(item.productImageUrl.toString()),
+                            //   fit: BoxFit.contain,
+                            // ),
+                          ),
+                        ),
+                        SizedBox(width: 20.h),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "Red Shopping Bag Bag \nbag bag",
+                                //    item.productName.toString(),
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 5.h),
+                            Container(
+                              width: MediaQuery.of(context).size.width * .1,
+                              child: FittedBox(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text(
+                              '৳ 2,000.0',
+                              style: TextStyle(color: Colors.green),
+                            ),
+                            Text(
+                              '৳ 2,500.0',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  decoration: TextDecoration.lineThrough),
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xffFF6000),
+                                ),
+                                onPressed: () {
+                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => FashionDetailsController()));
+                                },
+                                // icon: Icon(
+                                //   Icons.shopping_cart,
+                                //   color: Colors.white,
+                                //   size: 12.sp,
+                                // ),
+                                child: Text(
+                                  'Shop Now',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 15.sp),
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

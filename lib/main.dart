@@ -1,10 +1,11 @@
+import 'package:fashion_app/provider/fashion_color.dart';
+import 'package:fashion_app/provider/fashion_product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'View/component/cart.dart';
-import 'View/provider/fashion_color.dart';
-import 'View/provider/fashion_product_details.dart';
 import 'View/fashion_product_details/fashion_product_details.dart';
+import 'View/fashion_product_details/review.dart';
+import 'component/cart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
               //textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
             ),
-            home: Fashion_Product_Details(),
+            home: FashionReview(),//Fashion_Product_Details(),
             // routes: {
             //   Fashion_Product_Details.routeName: (context) => Fashion_Product_Details(),
             // },
